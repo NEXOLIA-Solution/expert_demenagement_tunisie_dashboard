@@ -10,7 +10,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, Clock } from "lucide-react"
 import axios from "axios"
 import Image from "next/image"
-import logoala from "@/public/logoAla copy.png"
+import logoala from "@/public/logo/logo1-removebg-preview.png"
 
 export default function VerifyCodePage() {
   const router = useRouter()
