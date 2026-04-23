@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, Mail } from "lucide-react"
 import ReCAPTCHA from "react-google-recaptcha"
-import logoala from "@/public/logoAla copy.png"
+import logoala from "@/public/logo/logo1-removebg-preview.png"
 import Image from "next/image"
 import axios from "axios"
 
