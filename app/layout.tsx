@@ -8,25 +8,65 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "DéménaPro - Dashboard",
-  description: "Système de gestion pour agence de déménagement",
-  generator: "v0.app",
+  metadataBase: new URL("https://expert-demenagement-tunisie.com"),
+
+  title: {
+    default: "Déménagement Tunisie | Expert Déménagement Professionnel",
+    template: "%s | Expert Déménagement Tunisie",
+  },
+
+  description:
+    "Expert en déménagement en Tunisie 🇹🇳. Service rapide, sécurisé et économique pour particuliers et entreprises. Devis gratuit.",
   icons: {
-    icon: [
+    icon: "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png", // ou ton logo
+    shortcut: "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
+    apple: "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
+  },
+  keywords: [
+    "déménagement Tunisie",
+    "déménageur Tunisie",
+    "transport meubles Tunisie",
+    "déménagement pas cher",
+    "société déménagement Tunisie",
+  ],
+
+  authors: [{ name: "Expert Déménagement Tunisie" }],
+
+  openGraph: {
+    title: "Déménagement Tunisie | Service Professionnel",
+    description:
+      "Entreprise spécialisée en déménagement résidentiel et commercial partout en Tunisie.",
+    url: "https://expert-demenagement-tunisie.com",
+    siteName: "Expert Déménagement Tunisie",
+    images: [
       {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        url: "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Service de déménagement en Tunisie",
       },
     ],
-    apple: "/apple-icon.png",
+    locale: "fr_FR",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Déménagement Tunisie",
+    description: "Service professionnel de déménagement en Tunisie",
+    images: [
+      "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
+    ],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
   },
 }
 
@@ -44,3 +84,17 @@ export default function RootLayout({
     </html>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
