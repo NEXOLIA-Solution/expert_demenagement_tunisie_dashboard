@@ -8,7 +8,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://expert-demenagement-tunisie.com"),
+  metadataBase: new URL("https://ala.expert-demenagement-tunisie.com"),
 
   title: {
     default: "Déménagement Tunisie | Expert Déménagement Professionnel",
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   description:
     "Expert en déménagement en Tunisie 🇹🇳. Service rapide, sécurisé et économique pour particuliers et entreprises. Devis gratuit.",
   icons: {
-    icon: "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png", // ou ton logo
-    shortcut: "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
-    apple: "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
+    icon: "https://ala.expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png", // ou ton logo
+    shortcut: "https://ala.expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
+    apple: "https://ala.expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
   },
   keywords: [
     "déménagement Tunisie",
@@ -36,11 +36,11 @@ export const metadata: Metadata = {
     title: "Déménagement Tunisie | Service Professionnel",
     description:
       "Entreprise spécialisée en déménagement résidentiel et commercial partout en Tunisie.",
-    url: "https://expert-demenagement-tunisie.com",
+    url: "https://ala.expert-demenagement-tunisie.com",
     siteName: "Expert Déménagement Tunisie",
     images: [
       {
-        url: "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
+        url: "https://ala.expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
         width: 1200,
         height: 630,
         alt: "Service de déménagement en Tunisie",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Déménagement Tunisie",
     description: "Service professionnel de déménagement en Tunisie",
     images: [
-      "https://expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
+      "https://ala.expert-demenagement-tunisie.com/logo/logo1-removebg-preview.png",
     ],
   },
 
