@@ -115,7 +115,7 @@ export default function LoginPage() {
 
             {showCaptcha && (
               <div className="my-4">
-                <ReCAPTCHA sitekey="6LdYZsYsAAAAADnwBhif2XgTyaStvNIlKDvfp1dO" onChange={handleCaptchaChange} />
+                <ReCAPTCHA sitekey="6LdYZsYsAAAAAA2JYZL4qcg9u63AFqZtPhYCY3kW" onChange={handleCaptchaChange} />
               </div>
             )}
 
