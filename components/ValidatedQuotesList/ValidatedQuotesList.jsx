@@ -92,7 +92,7 @@ const ValidatedQuotesList = () => {
   }
 
   return (
-    <div className="validated-quotes-container">
+     <div className="validated-quotes-container">
       <div className="header">
         <h2>📄 Devis validés <span className="badge">{quotes.length}</span></h2>
         {notification.message && (
