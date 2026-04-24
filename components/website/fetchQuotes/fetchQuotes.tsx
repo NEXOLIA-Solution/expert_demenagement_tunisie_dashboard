@@ -771,7 +771,7 @@ const CompletedQuotes: React.FC = () => {
 
             {/* Modal de visualisation du document - inchangée */}
             <Dialog open={isViewModalOpen} onOpenChange={setIsViewModalOpen}>
-                <DialogContent className="min-w-4xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-[95vw] md:max-w-4xl max-h-[90vh] overflow-auto">
                     {selectedQuote && (
                         <>
                             <DialogHeader>
