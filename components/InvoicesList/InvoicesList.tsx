@@ -364,7 +364,10 @@ const InvoicesList: React.FC = () => {
           ⬇️ Télécharger en image
         </button>
       </div>
-      <div className="p-6 flex justify-center">
+
+      
+    <div className="p-6 overflow-x-auto">
+  <div className="flex justify-center min-w-[800px]">
         <div id="invoice-document-content" className="bg-white p-8 border shadow-lg rounded-lg" style={{ width: '800px', fontFamily: "'Inter', sans-serif" }}>
           
           {/* En-tête avec logo */}
@@ -478,22 +481,13 @@ const InvoicesList: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div></div>
     </div>
   </div>
 )}
       {/* Responsive : transformation en cartes sur petits écrans */}
       <style>{`
-        @media (max-width: 640px) {
-          table thead { display: none; }
-          table tbody tr { display: block; margin-bottom: 1rem; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 0.5rem; }
-          table tbody td { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-bottom: 1px solid #e2e8f0; }
-          table tbody td:last-child { border-bottom: none; }
-          table tbody td::before { content: attr(data-label); font-weight: 600; color: #0f172a; }
-          .grid-cols-[2fr,1fr,1fr,1fr,0.5fr] { grid-template-columns: 1fr !important; gap: 0.5rem !important; }
-          .items-header { display: none; }
-          .item-row { border: 1px solid #e2e8f0; border-radius: 1rem; margin-bottom: 0.5rem; padding: 0.5rem; }
-        }
+   
       `}</style>
     </div>
   );

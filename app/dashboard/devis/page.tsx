@@ -106,7 +106,7 @@ export default function Devis() {
 
       {/* Popup de création de devis avec le formulaire QuoteForm */}
       <Dialog open={isQuoteDialogOpen} onOpenChange={setIsQuoteDialogOpen}>
-        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-[95vw] md:max-w-4xl max-h-[90vh] overflow-auto">
           <DialogHeader>
             <DialogTitle>Créer un nouveau devis</DialogTitle>
           </DialogHeader>

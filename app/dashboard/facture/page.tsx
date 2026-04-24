@@ -31,12 +31,12 @@ export default function Facture() {
   const [selectedQuoteId, setSelectedQuoteId] = useState<string | null>(null)
   const [isManualDialogOpen, setIsManualDialogOpen] = useState(false)
   const { toast } = useToast()
-  
 
 
 
 
-    useEffect(() => {
+
+  useEffect(() => {
     const token = localStorage.getItem("token")
     const userId = localStorage.getItem("user_id")
     const userName = localStorage.getItem("user_name")
@@ -109,39 +109,30 @@ export default function Facture() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <div className="border-b border-gray-200">
-            <TabsList className="bg-transparent h-auto p-0 space-x-6">
+          <div className="border-b border-gray-200 overflow-x-auto">
+            <TabsList className="bg-transparent h-auto p-0 flex whitespace-nowrap space-x-4 min-w-max">
+
               <TabsTrigger
                 value="init"
-                className="data-[state=active]:border-green-600 data-[state=active]:text-green-600 data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 border-transparent rounded-none px-4 py-3 text-base font-medium transition-all duration-200"
+                className="data-[state=active]:border-green-600 data-[state=active]:text-green-600 data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 border-transparent rounded-none px-4 py-3 text-sm md:text-base font-medium transition-all duration-200"
               >
                 Initialiser depuis un devis
               </TabsTrigger>
 
-
-              
-              {/* <TabsTrigger
-                value="manual"
-                className="data-[state=active]:border-green-600 data-[state=active]:text-green-600 data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 border-transparent rounded-none px-4 py-3 text-base font-medium transition-all duration-200"
-              >
-                Créer une facture manuelle
-              </TabsTrigger> */}
-
-
-
               <TabsTrigger
                 value="list"
-                className="data-[state=active]:border-green-600 data-[state=active]:text-green-600 data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 border-transparent rounded-none px-4 py-3 text-base font-medium transition-all duration-200"
+                className="data-[state=active]:border-green-600 data-[state=active]:text-green-600 data-[state=active]:shadow-none data-[state=active]:bg-transparent border-b-2 border-transparent rounded-none px-4 py-3 text-sm md:text-base font-medium transition-all duration-200"
               >
                 Toutes les factures
               </TabsTrigger>
+
             </TabsList>
           </div>
 
           {/* Onglet 1 : Initialisation à partir d'un devis validé */}
           <TabsContent value="init" className="mt-0">
             <div>
-              <ValidatedQuotesList/>
+              <ValidatedQuotesList />
             </div>
           </TabsContent>
 
@@ -170,7 +161,7 @@ export default function Facture() {
 
           {/* Onglet 3 : Liste de toutes les factures (optionnel mais utile) */}
           <TabsContent value="list" className="mt-0">
-            <InvoicesList/>
+            <InvoicesList />
           </TabsContent>
         </Tabs>
       </div>
