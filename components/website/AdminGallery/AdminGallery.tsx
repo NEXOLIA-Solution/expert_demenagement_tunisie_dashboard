@@ -453,7 +453,7 @@ export default function AdminGallery() {
 
         {/* Filtres et contrôles */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4" style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
               <SelectTrigger className="w-[200px]">
                 <SelectValue placeholder="Toutes les catégories" />

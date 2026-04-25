@@ -578,7 +578,7 @@ const QuoteDashboard: React.FC = () => {
 
       {/* Modal Détails - Version améliorée */}
       <Dialog open={isDetailModalOpen} onOpenChange={setIsDetailModalOpen}>
-        <DialogContent className="min-w-4xl max-h-[90vh] overflow-y-auto">
+  <DialogContent className="w-[95vw] max-w-[95vw] h-[90vh] max-h-[90vh] overflow-auto">
           {selectedQuote && (
             <>
               <DialogHeader>
