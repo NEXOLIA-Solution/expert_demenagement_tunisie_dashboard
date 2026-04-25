@@ -32,11 +32,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { 
-  Eye, 
-  Pencil, 
-  Trash2, 
-  CheckCircle, 
+import {
+  Eye,
+  Pencil,
+  Trash2,
+  CheckCircle,
   XCircle,
   Star,
   MapPin,
@@ -137,7 +137,7 @@ export default function GestionReviews() {
   // Calcul des statistiques
   const validatedCount = reviews.filter(r => r.isValidated).length;
   const pendingCount = reviews.filter(r => !r.isValidated).length;
-  const averageRating = reviews.length > 0 
+  const averageRating = reviews.length > 0
     ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
     : 0;
 
@@ -422,7 +422,7 @@ export default function GestionReviews() {
                     </TableRow>
                   ) : (
                     filteredReviews.map((review, index) => (
-                      <TableRow 
+                      <TableRow
                         key={review._id}
                         className="hover:bg-slate-50 transition-colors duration-150 group"
                       >
@@ -434,9 +434,9 @@ export default function GestionReviews() {
                         <TableCell>
                           <div className="flex items-center gap-3">
                             {review.profileImage ? (
-                              <img 
-                                src={review.profileImage} 
-                                alt="" 
+                              <img
+                                src={review.profileImage}
+                                alt=""
                                 className="w-10 h-10 rounded-full object-cover border-2 border-orange-200"
                               />
                             ) : (
@@ -466,11 +466,10 @@ export default function GestionReviews() {
                               {Array.from({ length: 5 }).map((_, i) => (
                                 <Star
                                   key={i}
-                                  className={`h-4 w-4 ${
-                                    i < review.rating 
-                                      ? "text-yellow-400 fill-yellow-400" 
+                                  className={`h-4 w-4 ${i < review.rating
+                                      ? "text-yellow-400 fill-yellow-400"
                                       : "text-gray-300"
-                                  }`}
+                                    }`}
                                 />
                               ))}
                             </div>
@@ -495,11 +494,11 @@ export default function GestionReviews() {
                               onCheckedChange={(checked) => handleValidateToggle(review, checked)}
                               className={review.isValidated ? "bg-green-500" : "bg-yellow-500"}
                             />
-                            <Badge 
+                            <Badge
                               variant="outline"
                               className={
-                                review.isValidated 
-                                  ? "bg-green-50 text-green-700 border-green-200" 
+                                review.isValidated
+                                  ? "bg-green-50 text-green-700 border-green-200"
                                   : "bg-yellow-50 text-yellow-700 border-yellow-200"
                               }
                             >
@@ -509,10 +508,10 @@ export default function GestionReviews() {
                         </TableCell>
                         <TableCell>
                           <div className="flex justify-end gap-1 opacity-70 group-hover:opacity-100 transition-opacity">
-                            <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              onClick={() => openViewDialog(review)} 
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => openViewDialog(review)}
                               title="Voir les détails"
                               className="hover:bg-blue-100 hover:text-blue-700"
                             >
@@ -520,9 +519,9 @@ export default function GestionReviews() {
                             </Button>
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
-                                <Button 
-                                  variant="ghost" 
-                                  size="icon" 
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
                                   title="Supprimer"
                                   className="hover:bg-red-100 hover:text-red-700"
                                 >
@@ -533,14 +532,14 @@ export default function GestionReviews() {
                                 <AlertDialogHeader>
                                   <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    Êtes-vous sûr de vouloir supprimer l'avis de {review.userName} ? 
+                                    Êtes-vous sûr de vouloir supprimer l'avis de {review.userName} ?
                                     Cette action est irréversible.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                   <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                  <AlertDialogAction 
-                                    onClick={() => handleDelete(review._id)} 
+                                  <AlertDialogAction
+                                    onClick={() => handleDelete(review._id)}
                                     className="bg-red-600 hover:bg-red-700"
                                   >
                                     Supprimer
@@ -569,8 +568,9 @@ export default function GestionReviews() {
 
       {/* Dialogue de visualisation/modification */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-2xl">
-          <DialogHeader>
+        <DialogContent className="sm:max-w-2xl max-h-[90vh] flex flex-col p-0 overflow-hidden">
+          {/* En-tête fixe */}
+          <DialogHeader className="px-6 pt-6 pb-3 border-b shrink-0">
             <DialogTitle className="text-2xl flex items-center gap-2">
               {dialogMode === "view" ? (
                 <>
@@ -586,150 +586,152 @@ export default function GestionReviews() {
             </DialogTitle>
           </DialogHeader>
 
-          {selectedReview && (
-            <div className="space-y-4">
-              {dialogMode === "view" ? (
-                // Mode visualisation amélioré
-                <div className="space-y-6">
-                  {/* En-tête avec avatar */}
-                  <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-slate-50 to-orange-50 rounded-lg border border-orange-100">
-                    {selectedReview.profileImage ? (
-                      <img 
-                        src={selectedReview.profileImage} 
-                        alt="" 
-                        className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg"
-                      />
-                    ) : (
-                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-3xl font-bold text-white shadow-lg">
-                        {selectedReview.userName.charAt(0)}
-                      </div>
-                    )}
-                    <div>
-                      <h3 className="text-2xl font-semibold">{selectedReview.userName}</h3>
-                      <div className="flex items-center gap-4 mt-2">
-                        <div className="flex items-center gap-1 text-slate-600">
-                          <Mail className="h-4 w-4" />
-                          <span className="text-sm">{selectedReview.email}</span>
+          {/* Corps avec défilement vertical */}
+          <div className="flex-1 overflow-y-auto px-6 py-4">
+            {selectedReview && (
+              <div className="space-y-4">
+                {dialogMode === "view" ? (
+                  // Mode visualisation amélioré
+                  <div className="space-y-6">
+                    {/* En-tête avec avatar */}
+                    <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-slate-50 to-orange-50 rounded-lg border border-orange-100">
+                      {selectedReview.profileImage ? (
+                        <img
+                          src={selectedReview.profileImage}
+                          alt=""
+                          className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg"
+                        />
+                      ) : (
+                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-3xl font-bold text-white shadow-lg">
+                          {selectedReview.userName.charAt(0)}
                         </div>
-                        <div className="flex items-center gap-1 text-slate-600">
-                          <Calendar className="h-4 w-4" />
-                          <span className="text-sm">{formatDate(selectedReview.createdAt)}</span>
+                      )}
+                      <div>
+                        <h3 className="text-2xl font-semibold">{selectedReview.userName}</h3>
+                        <div className="flex items-center gap-4 mt-2">
+                          <div className="flex items-center gap-1 text-slate-600">
+                            <Mail className="h-4 w-4" />
+                            <span className="text-sm">{selectedReview.email}</span>
+                          </div>
+                          <div className="flex items-center gap-1 text-slate-600">
+                            <Calendar className="h-4 w-4" />
+                            <span className="text-sm">{formatDate(selectedReview.createdAt)}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Grille d'informations */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-slate-50 p-3 rounded-lg">
-                      <Label className="text-xs text-slate-500">Service</Label>
-                      <p className="font-medium flex items-center gap-2 mt-1">
-                        <Badge variant="outline" className="bg-blue-50">
-                          {selectedReview.service}
-                        </Badge>
-                      </p>
-                    </div>
-                    <div className="bg-slate-50 p-3 rounded-lg">
-                      <Label className="text-xs text-slate-500">Ville</Label>
-                      <p className="font-medium flex items-center gap-2 mt-1">
-                        <MapPin className="h-4 w-4 text-slate-400" />
-                        {selectedReview.city}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Note */}
-                  <div className="bg-slate-50 p-4 rounded-lg">
-                    <Label className="text-xs text-slate-500 mb-2 block">Note</Label>
-                    <div className="flex items-center gap-2">
-                      <div className="flex gap-1">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-6 w-6 ${
-                              i < selectedReview.rating 
-                                ? "text-yellow-400 fill-yellow-400" 
-                                : "text-gray-300"
-                            }`}
-                          />
-                        ))}
+                    {/* Grille d'informations */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-slate-50 p-3 rounded-lg">
+                        <Label className="text-xs text-slate-500">Service</Label>
+                        <p className="font-medium flex items-center gap-2 mt-1">
+                          <Badge variant="outline" className="bg-blue-50">
+                            {selectedReview.service}
+                          </Badge>
+                        </p>
                       </div>
-                      <span className={`font-bold text-lg ${getRatingColor(selectedReview.rating)}`}>
-                        {selectedReview.rating}/5
-                      </span>
+                      <div className="bg-slate-50 p-3 rounded-lg">
+                        <Label className="text-xs text-slate-500">Ville</Label>
+                        <p className="font-medium flex items-center gap-2 mt-1">
+                          <MapPin className="h-4 w-4 text-slate-400" />
+                          {selectedReview.city}
+                        </p>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Avis */}
-                  <div className="bg-slate-50 p-4 rounded-lg">
-                    <Label className="text-xs text-slate-500 mb-2 block">Avis</Label>
-                    <p className="whitespace-pre-wrap bg-white p-4 rounded border border-slate-200">
-                      {selectedReview.reviewText}
-                    </p>
-                  </div>
-
-                  {/* Statut avec switch */}
-                  <div className="bg-slate-50 p-4 rounded-lg">
-                    <Label className="text-xs text-slate-500 mb-2 block">Statut de validation</Label>
-                    <div className="flex items-center gap-4">
-                      <Switch
-                        checked={selectedReview.isValidated}
-                        onCheckedChange={(checked) => {
-                          handleValidateToggle(selectedReview, checked);
-                          setIsDialogOpen(false);
-                        }}
-                        className={selectedReview.isValidated ? "bg-green-500" : "bg-yellow-500"}
-                      />
+                    {/* Note */}
+                    <div className="bg-slate-50 p-4 rounded-lg">
+                      <Label className="text-xs text-slate-500 mb-2 block">Note</Label>
                       <div className="flex items-center gap-2">
-                        {selectedReview.isValidated ? (
-                          <>
-                            <CheckCircle className="h-5 w-5 text-green-500" />
-                            <span className="font-medium text-green-700">Avis validé</span>
-                          </>
-                        ) : (
-                          <>
-                            <Clock className="h-5 w-5 text-yellow-500" />
-                            <span className="font-medium text-yellow-700">En attente de validation</span>
-                          </>
-                        )}
+                        <div className="flex gap-1">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`h-6 w-6 ${i < selectedReview.rating
+                                  ? "text-yellow-400 fill-yellow-400"
+                                  : "text-gray-300"
+                                }`}
+                            />
+                          ))}
+                        </div>
+                        <span className={`font-bold text-lg ${getRatingColor(selectedReview.rating)}`}>
+                          {selectedReview.rating}/5
+                        </span>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex justify-end pt-4">
-                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                      Fermer
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                // Mode édition
-                <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-                  <div className="bg-gradient-to-r from-slate-50 to-orange-50 p-4 rounded-lg">
-                    <Label className="text-sm font-medium mb-2 block">Statut de validation</Label>
-                    <div className="flex items-center gap-4">
-                      <Switch
-                        checked={selectedReview.isValidated}
-                        onCheckedChange={async (checked) => {
-                          await handleValidateToggle(selectedReview, checked);
-                          setIsDialogOpen(false);
-                        }}
-                        className={selectedReview.isValidated ? "bg-green-500" : "bg-yellow-500"}
-                      />
-                      <span className={selectedReview.isValidated ? "text-green-600" : "text-yellow-600"}>
-                        {selectedReview.isValidated ? "Validé" : "En attente"}
-                      </span>
+                    {/* Avis */}
+                    <div className="bg-slate-50 p-4 rounded-lg">
+                      <Label className="text-xs text-slate-500 mb-2 block">Avis</Label>
+                      <p className="whitespace-pre-wrap bg-white p-4 rounded border border-slate-200">
+                        {selectedReview.reviewText}
+                      </p>
+                    </div>
+
+                    {/* Statut avec switch */}
+                    <div className="bg-slate-50 p-4 rounded-lg">
+                      <Label className="text-xs text-slate-500 mb-2 block">Statut de validation</Label>
+                      <div className="flex items-center gap-4">
+                        <Switch
+                          checked={selectedReview.isValidated}
+                          onCheckedChange={(checked) => {
+                            handleValidateToggle(selectedReview, checked);
+                            setIsDialogOpen(false);
+                          }}
+                          className={selectedReview.isValidated ? "bg-green-500" : "bg-yellow-500"}
+                        />
+                        <div className="flex items-center gap-2">
+                          {selectedReview.isValidated ? (
+                            <>
+                              <CheckCircle className="h-5 w-5 text-green-500" />
+                              <span className="font-medium text-green-700">Avis validé</span>
+                            </>
+                          ) : (
+                            <>
+                              <Clock className="h-5 w-5 text-yellow-500" />
+                              <span className="font-medium text-yellow-700">En attente de validation</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end pt-2">
+                      <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                        Fermer
+                      </Button>
                     </div>
                   </div>
-                  <div className="flex justify-end pt-4">
-                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                      Annuler
-                    </Button>
-                  </div>
-                </form>
-              )}
-            </div>
-          )}
+                ) : (
+                  // Mode édition
+                  <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+                    <div className="bg-gradient-to-r from-slate-50 to-orange-50 p-4 rounded-lg">
+                      <Label className="text-sm font-medium mb-2 block">Statut de validation</Label>
+                      <div className="flex items-center gap-4">
+                        <Switch
+                          checked={selectedReview.isValidated}
+                          onCheckedChange={async (checked) => {
+                            await handleValidateToggle(selectedReview, checked);
+                            setIsDialogOpen(false);
+                          }}
+                          className={selectedReview.isValidated ? "bg-green-500" : "bg-yellow-500"}
+                        />
+                        <span className={selectedReview.isValidated ? "text-green-600" : "text-yellow-600"}>
+                          {selectedReview.isValidated ? "Validé" : "En attente"}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex justify-end pt-4">
+                      <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                        Annuler
+                      </Button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </div>

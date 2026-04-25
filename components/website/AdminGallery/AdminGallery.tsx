@@ -265,7 +265,7 @@ export default function AdminGallery() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-green-50">
       {/* Image Expansion Dialog */}
       <Dialog open={isImageExpanded} onOpenChange={setIsImageExpanded}>
-        <DialogContent className="max-w-5xl">
+        <DialogContent className="max-w-5xl w-[95%] mx-auto max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <ImageIcon className="h-5 w-5" />
@@ -295,26 +295,27 @@ export default function AdminGallery() {
         </div>
 
         {/* En-tête */}
-        <div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-8">          <div className="flex items-center gap-4">
-          <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl shadow-lg">
-            <Camera className="h-8 w-8 text-white" />
-          </div>
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-                Gestion de la galerie
-              </h1>
-              <Badge variant="secondary" className="bg-green-100 text-green-700">
-                <Sparkles className="h-3 w-3 mr-1" />
-                Section active
-              </Badge>
+        <div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-8">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl shadow-lg">
+              <Camera className="h-8 w-8 text-white" />
             </div>
-            <p className="text-slate-600">
-              Interface d'administration pour gérer les images de la galerie
-            </p>
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
+                  Gestion de la galerie
+                </h1>
+                <Badge variant="secondary" className="bg-green-100 text-green-700">
+                  <Sparkles className="h-3 w-3 mr-1" />
+                  Section active
+                </Badge>
+              </div>
+              <p className="text-slate-600">
+                Interface d'administration pour gérer les images de la galerie
+              </p>
+            </div>
           </div>
-        </div>
-          <Button
+          <Button 
             onClick={openCreateModal}
             size="lg"
             className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
@@ -514,8 +515,8 @@ export default function AdminGallery() {
               </div>
               <p className="text-slate-600 text-lg mb-2">Aucune image trouvée</p>
               <p className="text-sm text-slate-500 mb-6">
-                {selectedCategory !== "all"
-                  ? "Aucune image dans cette catégorie"
+                {selectedCategory !== "all" 
+                  ? "Aucune image dans cette catégorie" 
                   : "Commencez par ajouter votre première image"}
               </p>
               <Button onClick={openCreateModal} variant="outline">
@@ -524,7 +525,7 @@ export default function AdminGallery() {
             </CardContent>
           </Card>
         ) : viewMode === "grid" ? (
-          // Vue en grille
+          // Vue en grille avec icônes TOUJOURS VISIBLES
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredImages.map((image) => (
               <Card
@@ -537,39 +538,41 @@ export default function AdminGallery() {
                     alt={image.alt}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                  {/* Badge catégorie en haut à gauche */}
+                  <Badge className="absolute top-2 left-2 bg-green-600 z-10">
+                    {image.category}
+                  </Badge>
+                  {/* Boutons d'action TOUJOURS VISIBLES (plus de hover) */}
+                  <div className="absolute bottom-2 right-2 flex gap-1 bg-black/60 rounded-lg p-1 backdrop-blur-sm z-10">
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="text-white hover:text-green-400"
+                      className="h-8 w-8 bg-white/20 hover:bg-white/40 text-white hover:text-green-400"
                       onClick={() => openViewModal(image)}
                     >
-                      <Eye className="h-5 w-5" />
+                      <Eye className="h-4 w-4" />
                     </Button>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="text-white hover:text-blue-400"
+                      className="h-8 w-8 bg-white/20 hover:bg-white/40 text-white hover:text-blue-400"
                       onClick={() => openEditModal(image)}
                     >
-                      <Pencil className="h-5 w-5" />
+                      <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="text-white hover:text-red-400"
+                      className="h-8 w-8 bg-white/20 hover:bg-white/40 text-white hover:text-red-400"
                       onClick={() => {
                         if (window.confirm("Voulez-vous vraiment supprimer cette image ?")) {
                           handleDelete(image._id);
                         }
                       }}
                     >
-                      <Trash2 className="h-5 w-5" />
+                      <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
-                  <Badge className="absolute top-2 left-2 bg-green-600">
-                    {image.category}
-                  </Badge>
                 </div>
                 <CardContent className="p-4">
                   <h3 className="font-semibold text-lg mb-2 line-clamp-1">{image.alt}</h3>
@@ -602,7 +605,7 @@ export default function AdminGallery() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200">
-                    {filteredImages.map((image, index) => (
+                    {filteredImages.map((image) => (
                       <tr key={image._id} className="hover:bg-slate-50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="w-16 h-12 rounded overflow-hidden bg-slate-100">
@@ -677,9 +680,9 @@ export default function AdminGallery() {
         )}
       </div>
 
-      {/* Modal (création, édition, vue) */}
+      {/* Modal (création, édition, vue) - CENTRÉ AVEC SCROLL VERTICAL */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="sm:max-w-2xl">
+        <DialogContent className="sm:max-w-2xl w-[95%] mx-auto max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl flex items-center gap-2">
               {modalMode === "create" && (
@@ -704,7 +707,7 @@ export default function AdminGallery() {
           </DialogHeader>
 
           {modalMode === "view" ? (
-            <div className="space-y-6">
+            <div className="space-y-6 overflow-x-auto">
               <div className="relative h-80 rounded-lg overflow-hidden border border-slate-200">
                 <img
                   src={formData.src}
@@ -745,14 +748,10 @@ export default function AdminGallery() {
                 </div>
               </div>
 
-              <div className="flex justify-end">
-                <Button variant="outline" onClick={closeModal}>
-                  Fermer
-                </Button>
-              </div>
+              
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 overflow-x-auto">
               {/* Upload d'image */}
               <div>
                 <Label htmlFor="image" className="text-sm font-medium mb-2 block">
@@ -760,7 +759,7 @@ export default function AdminGallery() {
                 </Label>
                 <div className="flex items-center gap-4">
                   {formData.src && (
-                    <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-slate-200">
+                    <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0">
                       <img
                         src={formData.src}
                         alt="Prévisualisation"

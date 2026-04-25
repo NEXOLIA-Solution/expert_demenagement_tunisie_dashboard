@@ -32,10 +32,10 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { 
-    Eye, 
-    Pencil, 
-    Trash2, 
+import {
+    Eye,
+    Pencil,
+    Trash2,
     Plus,
     Video,
     Youtube,
@@ -175,7 +175,7 @@ export default function GestionVideos() {
 
     // Statistiques
     const totalVideos = videos.length;
-    const averageViews = videos.length > 0 
+    const averageViews = videos.length > 0
         ? Math.round(videos.reduce((acc, v) => acc + (v.views || 0), 0) / videos.length)
         : 0;
 
@@ -233,7 +233,7 @@ export default function GestionVideos() {
                             </p>
                         </div>
                     </div>
-                    <Button 
+                    <Button
                         onClick={openCreateDialog}
                         size="lg"
                         className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
@@ -404,13 +404,13 @@ export default function GestionVideos() {
                                 {videos.map((video, index) => {
                                     const thumbnail = getYoutubeThumbnail(video.youtubeLink);
                                     const videoId = getYoutubeVideoId(video.youtubeLink);
-                                    
+
                                     return (
                                         <Card key={video._id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-red-200">
                                             <div className="relative h-48 bg-slate-100">
                                                 {thumbnail ? (
-                                                    <img 
-                                                        src={thumbnail} 
+                                                    <img
+                                                        src={thumbnail}
                                                         alt={video.title}
                                                         className="w-full h-full object-cover"
                                                     />
@@ -420,9 +420,9 @@ export default function GestionVideos() {
                                                     </div>
                                                 )}
                                                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                                    <Button 
-                                                        variant="ghost" 
-                                                        size="icon" 
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
                                                         className="text-white hover:text-red-500"
                                                         onClick={() => window.open(video.youtubeLink, '_blank')}
                                                     >
@@ -442,17 +442,17 @@ export default function GestionVideos() {
                                                         <span>YouTube</span>
                                                     </div>
                                                     <div className="flex gap-1">
-                                                        <Button 
-                                                            variant="ghost" 
-                                                            size="icon" 
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
                                                             className="h-8 w-8 hover:bg-blue-100 hover:text-blue-700"
                                                             onClick={() => openViewDialog(video)}
                                                         >
                                                             <Eye className="h-4 w-4" />
                                                         </Button>
-                                                        <Button 
-                                                            variant="ghost" 
-                                                            size="icon" 
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
                                                             className="h-8 w-8 hover:bg-green-100 hover:text-green-700"
                                                             onClick={() => openEditDialog(video)}
                                                         >
@@ -460,9 +460,9 @@ export default function GestionVideos() {
                                                         </Button>
                                                         <AlertDialog>
                                                             <AlertDialogTrigger asChild>
-                                                                <Button 
-                                                                    variant="ghost" 
-                                                                    size="icon" 
+                                                                <Button
+                                                                    variant="ghost"
+                                                                    size="icon"
                                                                     className="h-8 w-8 hover:bg-red-100 hover:text-red-700"
                                                                 >
                                                                     <Trash2 className="h-4 w-4" />
@@ -472,14 +472,14 @@ export default function GestionVideos() {
                                                                 <AlertDialogHeader>
                                                                     <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
                                                                     <AlertDialogDescription>
-                                                                        Êtes-vous sûr de vouloir supprimer "{video.title}" ? 
+                                                                        Êtes-vous sûr de vouloir supprimer "{video.title}" ?
                                                                         Cette action est irréversible.
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
                                                                 <AlertDialogFooter>
                                                                     <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                                                    <AlertDialogAction 
-                                                                        onClick={() => handleDelete(video._id)} 
+                                                                    <AlertDialogAction
+                                                                        onClick={() => handleDelete(video._id)}
                                                                         className="bg-red-600 hover:bg-red-700"
                                                                     >
                                                                         Supprimer
@@ -536,9 +536,9 @@ export default function GestionVideos() {
                                             ) : (
                                                 videos.map((video, index) => {
                                                     const thumbnail = getYoutubeThumbnail(video.youtubeLink);
-                                                    
+
                                                     return (
-                                                        <TableRow 
+                                                        <TableRow
                                                             key={video._id}
                                                             className="hover:bg-slate-50 transition-colors duration-150 group"
                                                         >
@@ -550,9 +550,9 @@ export default function GestionVideos() {
                                                             <TableCell>
                                                                 <div className="w-20 h-12 bg-slate-100 rounded overflow-hidden">
                                                                     {thumbnail ? (
-                                                                        <img 
-                                                                            src={thumbnail} 
-                                                                            alt="" 
+                                                                        <img
+                                                                            src={thumbnail}
+                                                                            alt=""
                                                                             className="w-full h-full object-cover"
                                                                         />
                                                                     ) : (
@@ -569,10 +569,10 @@ export default function GestionVideos() {
                                                                 <div className="line-clamp-2 text-slate-600">{video.description}</div>
                                                             </TableCell>
                                                             <TableCell>
-                                                                <a 
-                                                                    href={video.youtubeLink} 
-                                                                    target="_blank" 
-                                                                    rel="noopener noreferrer" 
+                                                                <a
+                                                                    href={video.youtubeLink}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
                                                                     className="flex items-center gap-1 text-red-600 hover:underline"
                                                                 >
                                                                     <Youtube className="h-4 w-4" />
@@ -582,19 +582,19 @@ export default function GestionVideos() {
                                                             </TableCell>
                                                             <TableCell>
                                                                 <div className="flex justify-end gap-1 opacity-70 group-hover:opacity-100 transition-opacity">
-                                                                    <Button 
-                                                                        variant="ghost" 
-                                                                        size="icon" 
-                                                                        onClick={() => openViewDialog(video)} 
+                                                                    <Button
+                                                                        variant="ghost"
+                                                                        size="icon"
+                                                                        onClick={() => openViewDialog(video)}
                                                                         title="Voir"
                                                                         className="hover:bg-blue-100 hover:text-blue-700"
                                                                     >
                                                                         <Eye className="h-4 w-4" />
                                                                     </Button>
-                                                                    <Button 
-                                                                        variant="ghost" 
-                                                                        size="icon" 
-                                                                        onClick={() => openEditDialog(video)} 
+                                                                    <Button
+                                                                        variant="ghost"
+                                                                        size="icon"
+                                                                        onClick={() => openEditDialog(video)}
                                                                         title="Modifier"
                                                                         className="hover:bg-green-100 hover:text-green-700"
                                                                     >
@@ -602,9 +602,9 @@ export default function GestionVideos() {
                                                                     </Button>
                                                                     <AlertDialog>
                                                                         <AlertDialogTrigger asChild>
-                                                                            <Button 
-                                                                                variant="ghost" 
-                                                                                size="icon" 
+                                                                            <Button
+                                                                                variant="ghost"
+                                                                                size="icon"
                                                                                 title="Supprimer"
                                                                                 className="hover:bg-red-100 hover:text-red-700"
                                                                             >
@@ -615,14 +615,14 @@ export default function GestionVideos() {
                                                                             <AlertDialogHeader>
                                                                                 <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
                                                                                 <AlertDialogDescription>
-                                                                                    Êtes-vous sûr de vouloir supprimer "{video.title}" ? 
+                                                                                    Êtes-vous sûr de vouloir supprimer "{video.title}" ?
                                                                                     Cette action est irréversible.
                                                                                 </AlertDialogDescription>
                                                                             </AlertDialogHeader>
                                                                             <AlertDialogFooter>
                                                                                 <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                                                                <AlertDialogAction 
-                                                                                    onClick={() => handleDelete(video._id)} 
+                                                                                <AlertDialogAction
+                                                                                    onClick={() => handleDelete(video._id)}
                                                                                     className="bg-red-600 hover:bg-red-700"
                                                                                 >
                                                                                     Supprimer
@@ -655,7 +655,7 @@ export default function GestionVideos() {
                                         </div>
                                         <Progress value={Math.min(100, (totalVideos / 10) * 100)} className="h-2" />
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="p-4 bg-red-50 rounded-lg">
                                             <p className="text-sm text-red-600 mb-1">Vidéos avec miniatures</p>
@@ -679,7 +679,7 @@ export default function GestionVideos() {
 
             {/* Dialogue de création/modification/visualisation */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="sm:max-w-[600px]">
+                <DialogContent className="sm:max-w-[600px] w-[95%] mx-auto max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-2xl flex items-center gap-2">
                             {dialogMode === "create" && (
@@ -704,12 +704,12 @@ export default function GestionVideos() {
                     </DialogHeader>
 
                     {dialogMode === "view" && selectedVideo ? (
-                        <div className="space-y-6">
+                        <div className="space-y-6 overflow-x-auto">
                             {/* Miniature YouTube */}
                             {getYoutubeThumbnail(selectedVideo.youtubeLink) && (
                                 <div className="relative h-48 rounded-lg overflow-hidden border border-slate-200">
-                                    <img 
-                                        src={getYoutubeThumbnail(selectedVideo.youtubeLink)!} 
+                                    <img
+                                        src={getYoutubeThumbnail(selectedVideo.youtubeLink)!}
                                         alt={selectedVideo.title}
                                         className="w-full h-full object-cover"
                                     />
@@ -738,20 +738,21 @@ export default function GestionVideos() {
 
                             <div className="bg-slate-50 p-4 rounded-lg">
                                 <Label className="text-xs text-slate-500">Lien YouTube</Label>
-                                <div className="flex items-center gap-2 mt-2">
+                                <div className="flex items-center gap-2 mt-2 overflow-x-auto">
                                     <Youtube className="h-5 w-5 text-red-600 flex-shrink-0" />
-                                    <a 
-                                        href={selectedVideo.youtubeLink} 
-                                        target="_blank" 
+                                    <a
+                                        href={selectedVideo.youtubeLink}
+                                        target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-blue-600 hover:underline break-all flex-1"
+                                        className="text-blue-600 hover:underline break-all"
                                     >
                                         {selectedVideo.youtubeLink}
                                     </a>
-                                    <Button 
-                                        variant="ghost" 
+                                    <Button
+                                        variant="ghost"
                                         size="sm"
                                         onClick={() => window.open(selectedVideo.youtubeLink, '_blank')}
+                                        className="flex-shrink-0"
                                     >
                                         <ExternalLink className="h-4 w-4" />
                                     </Button>
@@ -765,14 +766,14 @@ export default function GestionVideos() {
                             </div>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 overflow-x-auto">
                             <div>
                                 <Label htmlFor="title" className="text-sm font-medium">
                                     Titre <span className="text-red-500">*</span>
                                 </Label>
-                                <Input 
-                                    id="title" 
-                                    {...register("title", { required: "Le titre est requis" })} 
+                                <Input
+                                    id="title"
+                                    {...register("title", { required: "Le titre est requis" })}
                                     className="mt-1 border-slate-200 focus:border-red-300 focus:ring-red-200"
                                     placeholder="Ex: Visite guidée du musée"
                                 />
@@ -785,10 +786,10 @@ export default function GestionVideos() {
                                 <Label htmlFor="description" className="text-sm font-medium">
                                     Description <span className="text-red-500">*</span>
                                 </Label>
-                                <Textarea 
-                                    id="description" 
+                                <Textarea
+                                    id="description"
                                     rows={4}
-                                    {...register("description", { required: true })} 
+                                    {...register("description", { required: true })}
                                     className="mt-1 border-slate-200 focus:border-red-300 focus:ring-red-200"
                                     placeholder="Décrivez le contenu de la vidéo..."
                                 />
@@ -798,16 +799,16 @@ export default function GestionVideos() {
                                 <Label htmlFor="youtubeLink" className="text-sm font-medium">
                                     Lien YouTube <span className="text-red-500">*</span>
                                 </Label>
-                                <Input 
-                                    id="youtubeLink" 
-                                    type="url" 
-                                    {...register("youtubeLink", { 
-                                        required: true, 
-                                        pattern: { 
-                                            value: /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/, 
-                                            message: "Veuillez entrer un lien YouTube valide" 
-                                        } 
-                                    })} 
+                                <Input
+                                    id="youtubeLink"
+                                    type="url"
+                                    {...register("youtubeLink", {
+                                        required: true,
+                                        pattern: {
+                                            value: /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/,
+                                            message: "Veuillez entrer un lien YouTube valide",
+                                        },
+                                    })}
                                     className="mt-1 border-slate-200 focus:border-red-300 focus:ring-red-200"
                                     placeholder="https://www.youtube.com/watch?v=..."
                                 />
@@ -823,7 +824,7 @@ export default function GestionVideos() {
                                 <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
                                     Annuler
                                 </Button>
-                                <Button 
+                                <Button
                                     type="submit"
                                     className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white"
                                 >

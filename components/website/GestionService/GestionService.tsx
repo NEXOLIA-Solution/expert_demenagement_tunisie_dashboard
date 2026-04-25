@@ -32,11 +32,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { 
-  Eye, 
-  Pencil, 
-  Trash2, 
-  Plus, 
+import {
+  Eye,
+  Pencil,
+  Trash2,
+  Plus,
   X,
   Image as ImageIcon,
   Tag,
@@ -237,7 +237,7 @@ export default function GestionServices() {
   const totalServices = services.length;
   const totalKeywords = services.reduce((acc, s) => acc + s.keywords.length, 0);
   const totalImages = services.reduce((acc, s) => acc + s.images.length, 0);
-  const lastUpdated = services.length > 0 
+  const lastUpdated = services.length > 0
     ? new Date(services[0].createdAt || "").toLocaleDateString('fr-FR')
     : "Aucune";
 
@@ -284,26 +284,26 @@ export default function GestionServices() {
         </div>
 
         {/* En-tête */}
-<div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-8">          <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl shadow-lg">
-              <Settings className="h-8 w-8 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-                  Gestion des services
-                </h1>
-                <Badge variant="secondary" className="bg-purple-100 text-purple-700">
-                  <Sparkles className="h-3 w-3 mr-1" />
-                  Section active
-                </Badge>
-              </div>
-              <p className="text-slate-600">
-                Interface d'administration pour gérer les services proposés
-              </p>
-            </div>
+        <div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-8">          <div className="flex items-center gap-4">
+          <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl shadow-lg">
+            <Settings className="h-8 w-8 text-white" />
           </div>
-          <Button 
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
+                Gestion des services
+              </h1>
+              <Badge variant="secondary" className="bg-purple-100 text-purple-700">
+                <Sparkles className="h-3 w-3 mr-1" />
+                Section active
+              </Badge>
+            </div>
+            <p className="text-slate-600">
+              Interface d'administration pour gérer les services proposés
+            </p>
+          </div>
+        </div>
+          <Button
             onClick={openCreateDialog}
             size="lg"
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
@@ -495,7 +495,7 @@ export default function GestionServices() {
               </div>
               <p className="text-slate-600 text-lg mb-2">Aucun service trouvé</p>
               <p className="text-sm text-slate-500 mb-6">
-                {services.length === 0 
+                {services.length === 0
                   ? "Commencez par créer votre premier service"
                   : "Aucun service ne correspond à votre recherche"}
               </p>
@@ -526,7 +526,7 @@ export default function GestionServices() {
                       <ImageIcon className="h-12 w-12 text-purple-400" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center gap-2">
                     <Button
                       variant="ghost"
                       size="icon"
@@ -695,14 +695,14 @@ export default function GestionServices() {
                                 <AlertDialogHeader>
                                   <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    Êtes-vous sûr de vouloir supprimer le service "{service.title}" ? 
+                                    Êtes-vous sûr de vouloir supprimer le service "{service.title}" ?
                                     Cette action est irréversible.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                   <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                  <AlertDialogAction 
-                                    onClick={() => handleDelete(service._id)} 
+                                  <AlertDialogAction
+                                    onClick={() => handleDelete(service._id)}
                                     className="bg-red-600 hover:bg-red-700"
                                   >
                                     Supprimer
@@ -840,8 +840,8 @@ export default function GestionServices() {
                   <div key={field.id} className="flex items-center gap-2 mt-2">
                     <Input
                       placeholder="https://exemple.com/image.jpg"
-                      {...register(`images.${index}.value`, { 
-                        required: index === 0 ? "Au moins une image est requise" : false 
+                      {...register(`images.${index}.value`, {
+                        required: index === 0 ? "Au moins une image est requise" : false
                       })}
                       className="flex-1"
                     />

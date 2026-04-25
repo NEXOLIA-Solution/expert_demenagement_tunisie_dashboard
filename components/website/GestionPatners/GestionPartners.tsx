@@ -32,10 +32,10 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { 
-    Eye, 
-    Pencil, 
-    Trash2, 
+import {
+    Eye,
+    Pencil,
+    Trash2,
     Plus,
     Building2,
     Calendar,
@@ -148,7 +148,7 @@ export default function GestionPartners() {
     // Filtrage des partenaires
     useEffect(() => {
         let filtered = [...partners];
-        
+
         if (searchTerm) {
             filtered = filtered.filter(
                 (partner) =>
@@ -245,7 +245,7 @@ export default function GestionPartners() {
     // Statistiques
     const totalPartners = partners.length;
     const uniqueSectors = new Set(partners.map(p => p.sector)).size;
-    const oldestYear = partners.length > 0 
+    const oldestYear = partners.length > 0
         ? Math.min(...partners.map(p => parseInt(p.year)))
         : new Date().getFullYear();
     const newestYear = partners.length > 0
@@ -295,26 +295,26 @@ export default function GestionPartners() {
                 </div>
 
                 {/* En-tête */}
-<div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-8">                    <div className="flex items-center gap-4">
-                        <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl shadow-lg">
-                            <Users className="h-8 w-8 text-white" />
-                        </div>
-                        <div>
-                            <div className="flex items-center gap-3 mb-2">
-                                <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-                                    Gestion des partenaires
-                                </h1>
-                                <Badge variant="secondary" className="bg-amber-100 text-amber-700">
-                                    <Sparkles className="h-3 w-3 mr-1" />
-                                    Section active
-                                </Badge>
-                            </div>
-                            <p className="text-slate-600">
-                                Interface d'administration pour gérer les partenaires et témoignages
-                            </p>
-                        </div>
+                <div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-8">                    <div className="flex items-center gap-4">
+                    <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl shadow-lg">
+                        <Users className="h-8 w-8 text-white" />
                     </div>
-                    <Button 
+                    <div>
+                        <div className="flex items-center gap-3 mb-2">
+                            <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
+                                Gestion des partenaires
+                            </h1>
+                            <Badge variant="secondary" className="bg-amber-100 text-amber-700">
+                                <Sparkles className="h-3 w-3 mr-1" />
+                                Section active
+                            </Badge>
+                        </div>
+                        <p className="text-slate-600">
+                            Interface d'administration pour gérer les partenaires et témoignages
+                        </p>
+                    </div>
+                </div>
+                    <Button
                         onClick={openCreateDialog}
                         size="lg"
                         className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
@@ -535,7 +535,7 @@ export default function GestionPartners() {
                             </div>
                             <p className="text-slate-600 text-lg mb-2">Aucun partenaire trouvé</p>
                             <p className="text-sm text-slate-500 mb-6">
-                                {partners.length === 0 
+                                {partners.length === 0
                                     ? "Commencez par ajouter votre premier partenaire"
                                     : "Aucun partenaire ne correspond à votre recherche"}
                             </p>
@@ -560,7 +560,7 @@ export default function GestionPartners() {
                                         alt={partner.name}
                                         className="h-16 w-auto object-contain max-w-full"
                                     />
-                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center gap-2">
                                         <Button
                                             variant="ghost"
                                             size="icon"
@@ -603,7 +603,7 @@ export default function GestionPartners() {
                                             {partner.year}
                                         </Badge>
                                     </div>
-                                    
+
                                     <p className="text-sm text-slate-600 mb-3 line-clamp-2">
                                         {partner.description}
                                     </p>
@@ -705,14 +705,14 @@ export default function GestionPartners() {
                                                                 <AlertDialogHeader>
                                                                     <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
                                                                     <AlertDialogDescription>
-                                                                        Êtes-vous sûr de vouloir supprimer le partenaire "{partner.name}" ? 
+                                                                        Êtes-vous sûr de vouloir supprimer le partenaire "{partner.name}" ?
                                                                         Cette action est irréversible.
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
                                                                 <AlertDialogFooter>
                                                                     <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                                                    <AlertDialogAction 
-                                                                        onClick={() => handleDelete(partner._id)} 
+                                                                    <AlertDialogAction
+                                                                        onClick={() => handleDelete(partner._id)}
                                                                         className="bg-red-600 hover:bg-red-700"
                                                                     >
                                                                         Supprimer
@@ -871,12 +871,12 @@ export default function GestionPartners() {
                                 <Input
                                     id="logo"
                                     type="url"
-                                    {...register("logo", { 
-                                        required: true, 
-                                        pattern: { 
-                                            value: /^https?:\/\//, 
-                                            message: "URL invalide" 
-                                        } 
+                                    {...register("logo", {
+                                        required: true,
+                                        pattern: {
+                                            value: /^https?:\/\//,
+                                            message: "URL invalide"
+                                        }
                                     })}
                                     className="mt-1"
                                     placeholder="https://exemple.com/logo.png"

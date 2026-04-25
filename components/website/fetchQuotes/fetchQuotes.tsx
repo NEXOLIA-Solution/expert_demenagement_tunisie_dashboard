@@ -532,7 +532,7 @@ const CompletedQuotes: React.FC = () => {
 
 
 
-                              
+
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
@@ -586,7 +586,7 @@ const CompletedQuotes: React.FC = () => {
                                             )}
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                            <div className="flex items-center justify-end gap-2">
                                                 {/* Bouton Voir - toujours actif */}
                                                 <Button
                                                     variant="ghost"
@@ -630,8 +630,8 @@ const CompletedQuotes: React.FC = () => {
                                             </div>
                                         </td>
 
-                                      
-                                      
+
+
                                     </tr>
                                 );
                             })}

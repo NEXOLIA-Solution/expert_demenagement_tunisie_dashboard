@@ -245,16 +245,16 @@ export function NewsManagerComplete() {
       reader.onload = (event) => {
         // Utiliser l'API native du navigateur pour créer un objet Image
         const img = new window.Image() // Correction : utiliser window.Image au lieu de new Image()
-        
+
         img.onload = () => {
           const canvas = document.createElement('canvas')
           let width = img.width
           let height = img.height
-          
+
           // Redimensionner si l'image est trop grande (max 1200px)
           const maxWidth = 1200
           const maxHeight = 1200
-          
+
           if (width > maxWidth) {
             height = (height * maxWidth) / width
             width = maxWidth
@@ -263,13 +263,13 @@ export function NewsManagerComplete() {
             width = (width * maxHeight) / height
             height = maxHeight
           }
-          
+
           canvas.width = width
           canvas.height = height
-          
+
           const ctx = canvas.getContext('2d')
           ctx?.drawImage(img, 0, 0, width, height)
-          
+
           // Convertir en WebP pour une meilleure compression
           canvas.toBlob(
             (blob) => {
@@ -287,7 +287,7 @@ export function NewsManagerComplete() {
             0.85 // Qualité 85% pour un bon équilibre taille/qualité
           )
         }
-        
+
         img.onerror = () => reject(new Error('Erreur lors du chargement de l\'image'))
         img.src = event.target?.result as string
       }
@@ -330,23 +330,23 @@ export function NewsManagerComplete() {
 
       // Optimiser et compresser l'image
       const optimizedFile = await optimizeImage(file)
-      
+
       clearInterval(progressInterval)
       setUploadProgress(100)
-      
+
       // Convertir en Base64
       const base64String = await convertToBase64(optimizedFile)
-      
+
       // Extraire le format de l'image
       const imageFormat = base64String.split(';')[0].split('/')[1] || 'webp'
-      
-      setFormData({ 
-        ...formData, 
+
+      setFormData({
+        ...formData,
         image: base64String,
         imageFormat: imageFormat,
         imageSize: optimizedFile.size
       })
-      
+
       toast({
         title: "Succès",
         description: `Image chargée avec succès (${(optimizedFile.size / 1024).toFixed(1)} KB)`,
@@ -365,128 +365,128 @@ export function NewsManagerComplete() {
   }
 
   const removeImage = () => {
-    setFormData({ 
-      ...formData, 
-      image: "", 
-      imageFormat: "", 
-      imageSize: 0 
+    setFormData({
+      ...formData,
+      image: "",
+      imageFormat: "",
+      imageSize: 0
     })
   }
-const handleSave = async () => {
-  try {
-    // Valider les champs requis
-    if (!formData.title.trim()) {
-      toast({
-        title: "Erreur",
-        description: "Le titre est requis",
-        variant: "destructive",
-      })
-      return
-    }
-    
-    if (!formData.excerpt.trim()) {
-      toast({
-        title: "Erreur",
-        description: "L'extrait est requis",
-        variant: "destructive",
-      })
-      return
-    }
-    
-    if (!formData.image) {
-      toast({
-        title: "Erreur",
-        description: "Une image est requise",
-        variant: "destructive",
-      })
-      return
-    }
-
-    // Préparer les données pour l'API - UNIQUEMENT les champs attendus par le backend
-    const apiData: any = {
-      title: formData.title.trim(),
-      category: formData.category,
-      date: formData.date,
-      excerpt: formData.excerpt.trim(),
-      image: formData.image, // Base64 data URL
-      isFeatured: formData.isFeatured,
-    }
-    
-    // Ajouter les champs optionnels seulement s'ils existent
-    if (formData.endDateOfOffre) {
-      apiData.endDateOfOffre = formData.endDateOfOffre
-    }
-    
-    if (formData.content && formData.content.trim()) {
-      apiData.content = formData.content.trim()
-    }
-    
-    // NE PAS inclure imageFormat et imageSize car votre API ne les accepte pas
-
-    // Pour la modification
-    if (selectedItem?._id) {
-      const response = await fetch(`${API_URL}/news/api/${selectedItem._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(apiData),
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Erreur lors de la mise à jour")
+  const handleSave = async () => {
+    try {
+      // Valider les champs requis
+      if (!formData.title.trim()) {
+        toast({
+          title: "Erreur",
+          description: "Le titre est requis",
+          variant: "destructive",
+        })
+        return
       }
 
-      const data = await response.json()
-      const savedItem = data.news || data
-
-      setNews(news.map((n) => (n._id === savedItem._id ? savedItem : n)))
-      toast({
-        title: "Succès",
-        description: "Actualité mise à jour avec succès",
-      })
-    } 
-    // Pour la création
-    else {
-      const response = await fetch(`${API_URL}/news/api`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(apiData),
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Erreur lors de la création")
+      if (!formData.excerpt.trim()) {
+        toast({
+          title: "Erreur",
+          description: "L'extrait est requis",
+          variant: "destructive",
+        })
+        return
       }
 
-      const data = await response.json()
-      const savedItem = data.news || data
+      if (!formData.image) {
+        toast({
+          title: "Erreur",
+          description: "Une image est requise",
+          variant: "destructive",
+        })
+        return
+      }
 
-      setNews([savedItem, ...news])
+      // Préparer les données pour l'API - UNIQUEMENT les champs attendus par le backend
+      const apiData: any = {
+        title: formData.title.trim(),
+        category: formData.category,
+        date: formData.date,
+        excerpt: formData.excerpt.trim(),
+        image: formData.image, // Base64 data URL
+        isFeatured: formData.isFeatured,
+      }
+
+      // Ajouter les champs optionnels seulement s'ils existent
+      if (formData.endDateOfOffre) {
+        apiData.endDateOfOffre = formData.endDateOfOffre
+      }
+
+      if (formData.content && formData.content.trim()) {
+        apiData.content = formData.content.trim()
+      }
+
+      // NE PAS inclure imageFormat et imageSize car votre API ne les accepte pas
+
+      // Pour la modification
+      if (selectedItem?._id) {
+        const response = await fetch(`${API_URL}/news/api/${selectedItem._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(apiData),
+        })
+
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.message || "Erreur lors de la mise à jour")
+        }
+
+        const data = await response.json()
+        const savedItem = data.news || data
+
+        setNews(news.map((n) => (n._id === savedItem._id ? savedItem : n)))
+        toast({
+          title: "Succès",
+          description: "Actualité mise à jour avec succès",
+        })
+      }
+      // Pour la création
+      else {
+        const response = await fetch(`${API_URL}/news/api`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(apiData),
+        })
+
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.message || "Erreur lors de la création")
+        }
+
+        const data = await response.json()
+        const savedItem = data.news || data
+
+        setNews([savedItem, ...news])
+        toast({
+          title: "Succès",
+          description: "Actualité créée avec succès",
+        })
+      }
+
+      setIsDialogOpen(false)
+    } catch (error) {
+      console.error("Erreur complète:", error)
       toast({
-        title: "Succès",
-        description: "Actualité créée avec succès",
+        title: "Erreur",
+        description: error instanceof Error ? error.message : "Impossible d'enregistrer l'actualité",
+        variant: "destructive",
       })
     }
-
-    setIsDialogOpen(false)
-  } catch (error) {
-    console.error("Erreur complète:", error)
-    toast({
-      title: "Erreur",
-      description: error instanceof Error ? error.message : "Impossible d'enregistrer l'actualité",
-      variant: "destructive",
-    })
   }
-}
 
   const handleToggleFeatured = async (item: NewsItem) => {
     try {
       const updatedItem = { ...item, isFeatured: !item.isFeatured }
-      
+
       const response = await fetch(`${API_URL}/news/api/${item._id || item.id}`, {
         method: "PUT",
         headers: {
@@ -501,11 +501,11 @@ const handleSave = async () => {
       const savedItem = data.news || data
 
       setNews(news.map((n) => (n._id === savedItem._id ? savedItem : n)))
-      
+
       toast({
         title: "Succès",
-        description: updatedItem.isFeatured 
-          ? "Article mis à la une" 
+        description: updatedItem.isFeatured
+          ? "Article mis à la une"
           : "Article retiré de la une",
       })
     } catch (error) {
@@ -560,7 +560,7 @@ const handleSave = async () => {
   const totalNews = news.length
   const featuredCount = news.filter(item => item.isFeatured).length
   const offersCount = news.filter(item => item.category === "Offre").length
-  const lastUpdated = news.length > 0 
+  const lastUpdated = news.length > 0
     ? formatDate(news[0].date)
     : "Aucune"
 
@@ -609,26 +609,26 @@ const handleSave = async () => {
         </div>
 
         {/* En-tête */}
-<div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-8">          <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg">
-              <Newspaper className="h-8 w-8 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-                  Gestion des actualités
-                </h1>
-                <Badge variant="secondary" className="bg-blue-100 text-blue-700">
-                  <Sparkles className="h-3 w-3 mr-1" />
-                  Section active
-                </Badge>
-              </div>
-              <p className="text-slate-600">
-                Interface d'administration pour gérer les actualités, offres et conseils
-              </p>
-            </div>
+        <div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-8">          <div className="flex items-center gap-4">
+          <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg">
+            <Newspaper className="h-8 w-8 text-white" />
           </div>
-          <Button 
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
+                Gestion des actualités
+              </h1>
+              <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+                <Sparkles className="h-3 w-3 mr-1" />
+                Section active
+              </Badge>
+            </div>
+            <p className="text-slate-600">
+              Interface d'administration pour gérer les actualités, offres et conseils
+            </p>
+          </div>
+        </div>
+          <Button
             onClick={handleCreate}
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
@@ -837,7 +837,7 @@ const handleSave = async () => {
               </div>
               <p className="text-slate-600 text-lg mb-2">Aucune actualité trouvée</p>
               <p className="text-sm text-slate-500 mb-6">
-                {news.length === 0 
+                {news.length === 0
                   ? "Commencez par créer votre première actualité"
                   : "Essayez de modifier vos filtres de recherche"}
               </p>
@@ -862,29 +862,14 @@ const handleSave = async () => {
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-white hover:text-blue-400"
-                      onClick={() => handleEdit(item)}
-                    >
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center gap-2">
+                    <Button variant="ghost" size="icon" className="text-white hover:text-blue-400" onClick={() => handleEdit(item)}>
                       <Edit className="h-5 w-5" />
                     </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-white hover:text-yellow-400"
-                      onClick={() => handleToggleFeatured(item)}
-                    >
+                    <Button variant="ghost" size="icon" className="text-white hover:text-yellow-400" onClick={() => handleToggleFeatured(item)}>
                       {item.isFeatured ? <StarOff className="h-5 w-5" /> : <Star className="h-5 w-5" />}
                     </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-white hover:text-red-400"
-                      onClick={() => handleDelete(item._id || item.id || "")}
-                    >
+                    <Button variant="ghost" size="icon" className="text-white hover:text-red-400" onClick={() => handleDelete(item._id || item.id || "")}>
                       <Trash2 className="h-5 w-5" />
                     </Button>
                   </div>
@@ -1042,10 +1027,10 @@ const handleSave = async () => {
                 <div className="relative w-32 h-32 bg-muted rounded-lg overflow-hidden border-2 border-dashed">
                   {formData.image ? (
                     <>
-                      <img 
-                        src={formData.image || "/placeholder.svg"} 
-                        alt="Aperçu" 
-                        className="w-full h-full object-cover" 
+                      <img
+                        src={formData.image || "/placeholder.svg"}
+                        alt="Aperçu"
+                        className="w-full h-full object-cover"
                       />
                       <Button
                         type="button"
@@ -1072,9 +1057,9 @@ const handleSave = async () => {
                     className="hidden"
                     id="image-upload"
                   />
-                  <Button 
-                    type="button" 
-                    variant="outline" 
+                  <Button
+                    type="button"
+                    variant="outline"
                     onClick={() => document.getElementById("image-upload")?.click()}
                     disabled={isUploading}
                     className="w-full"
@@ -1091,7 +1076,7 @@ const handleSave = async () => {
                       </>
                     )}
                   </Button>
-                  
+
                   {isUploading && uploadProgress > 0 && (
                     <div className="space-y-1">
                       <Progress value={uploadProgress} className="h-2" />
@@ -1100,7 +1085,7 @@ const handleSave = async () => {
                       </p>
                     </div>
                   )}
-                  
+
                   {formData.imageSize && formData.imageSize > 0 && (
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <CheckCircle className="h-3 w-3 text-green-500" />
@@ -1109,7 +1094,7 @@ const handleSave = async () => {
                       <span>Taille: {formatImageSize(formData.imageSize)}</span>
                     </div>
                   )}
-                  
+
                   <p className="text-xs text-muted-foreground">
                     Formats acceptés: JPG, PNG, WebP, GIF. Max 5 Mo.<br />
                     Les images sont automatiquement optimisées et converties en WebP.
@@ -1244,9 +1229,9 @@ const handleSave = async () => {
             <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
               Annuler
             </Button>
-            <Button 
-              type="button" 
-              onClick={handleSave} 
+            <Button
+              type="button"
+              onClick={handleSave}
               className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
               disabled={!formData.title.trim() || !formData.excerpt.trim() || !formData.image}
             >
