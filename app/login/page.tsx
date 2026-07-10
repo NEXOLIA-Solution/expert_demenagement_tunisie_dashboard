@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -17,21 +17,10 @@ export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [showCaptcha, setShowCaptcha] = useState(false)
   const [captchaVerified, setCaptchaVerified] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
-
-  // Afficher reCAPTCHA seulement si email et password sont remplis
-  useEffect(() => {
-    if (email.trim() !== "" && password.trim() !== "") {
-      setShowCaptcha(true)
-    } else {
-      setShowCaptcha(false)
-      setCaptchaVerified(false)
-    }
-  }, [email, password])
 
   const handleCaptchaChange = (token: string | null) => {
     setCaptchaVerified(!!token)
@@ -47,24 +36,24 @@ export default function LoginPage() {
       return
     }
 
+    // Validation supplémentaire (les champs sont requis par le formulaire)
+    if (!email.trim() || !password.trim()) {
+      setError("Veuillez remplir tous les champs")
+      return
+    }
+
     setIsLoading(true)
 
     try {
-
-       const baseUrl = process.env.NEXT_PUBLIC_API_BASE
-       
-      // Appel backend pour login + envoi email code
+      const baseUrl = process.env.NEXT_PUBLIC_API_BASE
       const response = await axios.post(
-      
         `${baseUrl}/user/api/login`,
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       )
 
-      // ✅ Si backend confirme que tout est correct
       if (response.data.isEmailPasswordRecaptchaVerified === true) {
         setSuccess(true)
-        // Passer l'email au verify-code via query param
         setTimeout(() => router.push(`/verify-code?email=${encodeURIComponent(email)}`), 1000)
       }
     } catch (err: any) {
@@ -113,11 +102,13 @@ export default function LoginPage() {
               />
             </div>
 
-            {showCaptcha && (
-              <div className="my-4">
-                <ReCAPTCHA sitekey="6LcCbMYsAAAAAG9I-B_rPBWGAOs-dfTkkA-X_ODt" onChange={handleCaptchaChange} />
-              </div>
-            )}
+            {/* reCAPTCHA toujours affiché */}
+            <div className="my-4">
+              <ReCAPTCHA
+                sitekey="6LcCbMYsAAAAAG9I-B_rPBWGAOs-dfTkkA-X_ODt"
+                onChange={handleCaptchaChange}
+              />
+            </div>
 
             {success && (
               <Alert className="bg-green-50 border-green-200 flex items-center gap-2">
@@ -134,18 +125,21 @@ export default function LoginPage() {
               </Alert>
             )}
 
-            {captchaVerified && (
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Connexion en cours...
-                  </>
-                ) : (
-                  "Se connecter"
-                )}
-              </Button>
-            )}
+            {/* Bouton toujours visible, désactivé si reCAPTCHA non vérifié ou champs vides */}
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isLoading || !captchaVerified || !email.trim() || !password.trim()}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Connexion en cours...
+                </>
+              ) : (
+                "Se connecter"
+              )}
+            </Button>
           </form>
         </CardContent>
       </Card>
