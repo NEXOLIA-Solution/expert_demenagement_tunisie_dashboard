@@ -39,12 +39,9 @@ if (!token) {
           <p className="text-muted-foreground">Aperçu de votre activité de déménagement</p>
         </div>
 
-        {/* <DashboardStats /> */}
+    
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* <RevenueChart /> */}
-          {/* <ProjectsChart /> */}
-        </div>
+        
       </div>
     </DashboardShell>
   )

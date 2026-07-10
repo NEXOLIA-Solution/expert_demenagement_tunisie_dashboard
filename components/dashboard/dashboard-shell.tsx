@@ -29,7 +29,6 @@ interface DashboardShellProps {
 const navigation = [
   // { name: "Tableau de bord", href: "/dashboard", icon: Home },
   { name: "Site Web", href: "/dashboard/website", icon: Globe },
-
   { name: "Devis", href: "/dashboard/devis", icon: FileText },
   { name: "Facture", href: "/dashboard/facture", icon: Calendar },
   // { name: "Finances", href: "/dashboard/finances", icon: Euro },

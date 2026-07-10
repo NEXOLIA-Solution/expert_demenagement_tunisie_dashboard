@@ -81,7 +81,7 @@ export default function VerifyCodePage() {
       localStorage.setItem("user_id", _id)
       localStorage.setItem("user_name", name)
 
-      router.push("/dashboard")
+      router.push("/dashboard/website")
     } catch (err: any) {
       setError(err.response?.data?.message || "Erreur lors de la vérification du code")
     } finally {
