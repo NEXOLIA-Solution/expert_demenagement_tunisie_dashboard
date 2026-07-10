@@ -17,13 +17,16 @@ export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [captchaVerified, setCaptchaVerified] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
 
+  // 🔍 Vérification : ce log doit s'afficher dans la console dès le chargement
+  console.log("🟢 LoginPage rendue - reCAPTCHA toujours affiché")
+
   const handleCaptchaChange = (token: string | null) => {
-    setCaptchaVerified(!!token)
+    setCaptchaToken(token)
   }
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -31,19 +34,17 @@ export default function LoginPage() {
     setError("")
     setSuccess(false)
 
-    if (!captchaVerified) {
+    if (!captchaToken) {
       setError("Veuillez vérifier le reCAPTCHA")
       return
     }
 
-    // Validation supplémentaire (les champs sont requis par le formulaire)
     if (!email.trim() || !password.trim()) {
       setError("Veuillez remplir tous les champs")
       return
     }
 
     setIsLoading(true)
-
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_BASE
       const response = await axios.post(
@@ -72,12 +73,12 @@ export default function LoginPage() {
             <div className="absolute inset-2 rounded-full bg-primary/10 animate-pulse"></div>
             <Image src={logoala} alt="Logo Ala" width={80} height={80} className="object-contain" />
           </div>
-
           <CardTitle className="text-2xl font-bold">Connexion Administrateur</CardTitle>
           <CardDescription>Accédez au tableau de bord de gestion</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
+            {/* Email - toujours visible */}
             <div className="space-y-2">
               <Label htmlFor="email">Email Administrateur</Label>
               <Input
@@ -90,6 +91,7 @@ export default function LoginPage() {
               />
             </div>
 
+            {/* Mot de passe - toujours visible */}
             <div className="space-y-2">
               <Label htmlFor="password">Mot de passe</Label>
               <Input
@@ -102,7 +104,7 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* reCAPTCHA toujours affiché */}
+            {/* ✅ reCAPTCHA - TOUJOURS affiché, sans aucune condition */}
             <div className="my-4">
               <ReCAPTCHA
                 sitekey="6LcCbMYsAAAAAG9I-B_rPBWGAOs-dfTkkA-X_ODt"
@@ -118,18 +120,17 @@ export default function LoginPage() {
                 </AlertDescription>
               </Alert>
             )}
-
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
 
-            {/* Bouton toujours visible, désactivé si reCAPTCHA non vérifié ou champs vides */}
+            {/* Bouton - toujours visible, mais désactivé si conditions non remplies */}
             <Button
               type="submit"
               className="w-full"
-              disabled={isLoading || !captchaVerified || !email.trim() || !password.trim()}
+              disabled={isLoading || !captchaToken || !email.trim() || !password.trim()}
             >
               {isLoading ? (
                 <>
